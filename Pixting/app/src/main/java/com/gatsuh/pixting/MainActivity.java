@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+//
         newPix = (Button)findViewById(R.id.btnnew);
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
