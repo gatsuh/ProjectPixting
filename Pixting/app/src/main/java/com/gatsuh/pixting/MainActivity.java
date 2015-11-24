@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
 
@@ -44,8 +45,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "New Pix activity started", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(i, CAMERA_DATA);
+                try {
+                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(i, CAMERA_DATA);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    img.setImageResource(R.drawable.sliced_bread_award_test);
+                }
             }
         });
 
