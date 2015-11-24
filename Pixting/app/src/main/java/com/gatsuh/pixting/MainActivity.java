@@ -1,6 +1,10 @@
 package com.gatsuh.pixting;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +12,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    final int CAMERA_DATA = 0;
+    Button newPix;
+    Bitmap bmp;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        newPix = (Button)findViewById(R.id.btnnew);
+        newPix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "New Pix activity started", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i, CAMERA_DATA);
+            }
+        });
+
+        img = (ImageView)findViewById(R.id.mainimage);
     }
 
     @Override
@@ -48,5 +72,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_DATA && resultCode == Activity.RESULT_OK){
+            Bundle extras = data.getExtras();
+            bmp = (Bitmap)extras.get("data");
+            img.setImageBitmap(bmp);
+        }
     }
 }
