@@ -1,6 +1,8 @@
 package com.gatsuh.pixting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,13 +15,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     final int CAMERA_DATA = 0;
-    Button newPix;
+    Button newPix, login;
     Bitmap bmp;
     ImageView img;
 
@@ -53,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
                 }finally {
                     img.setImageResource(R.drawable.sliced_bread_award_test);
                 }
+            }
+        });
+
+        login = (Button)findViewById(R.id.btn_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(getApplicationContext());
+                dialog.setTitle("LOGIN");
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setContentView(R.layout.login);
+                dialog.show();
+
             }
         });
 
