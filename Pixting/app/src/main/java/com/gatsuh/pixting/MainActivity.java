@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     img.setImageResource(R.drawable.sliced_bread_award_test);
                 }
             }
-        });
+        });//
 
         login = (Button)findViewById(R.id.btn_login);
         login.setOnClickListener(new View.OnClickListener() {
