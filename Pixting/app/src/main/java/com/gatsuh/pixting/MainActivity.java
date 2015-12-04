@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, "Signed up", Toast.LENGTH_SHORT).show();
                                     }else {
                                         Toast.makeText(MainActivity.this, "Sign up was unsuccessful", Toast.LENGTH_SHORT).show();
-                                        //hello
+                                        Log.d("problem",e.toString());
                                     }
                                 }
                             });
