@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, )
                                     }
                                 }
-                            });/////
+                            });/////test2
                         }else if (EDT_New_UserName.equals(null)){
                             Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
                         }else {
