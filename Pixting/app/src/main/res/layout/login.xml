@@ -11,7 +11,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="1"
@@ -19,7 +19,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="1"
@@ -31,5 +31,29 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/btn_login_dialog"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:text="If you don't have an account Please register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edt_new_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edt_new_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/edt_new_useremail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/btn_register"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
