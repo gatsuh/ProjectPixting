@@ -127,9 +127,11 @@ public class MainActivity extends AppCompatActivity {
                                 public void done(ParseException e) {
                                     if (e == null){
                                         Toast.makeText(MainActivity.this, "Signed up", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(MainActivity.this, "Sign up was unsuccessful", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            });/////I hope this works/
+                            });
                         }else if (EDT_New_UserName.equals(null)){
                             Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
                         }else {
@@ -139,22 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
-        login = (Button)findViewById(R.id.btn_login);
-        if (Login()) {
-            login.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                /*Dialog dialog = new Dialog(getApplicationContext());
-                dialog.setTitle("LOGIN");
-                dialog.setCancelable(false);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setContentView(R.layout.login);
-                dialog.show();*/
-                    Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         img = (ImageView)findViewById(R.id.mainimage);
     }
@@ -191,12 +177,5 @@ public class MainActivity extends AppCompatActivity {
             testObject.add("Image", bmp);
             testObject.saveInBackground();
         }
-    }
-
-    public boolean Login(){
-        user.put("username", "mark");
-        user.put("password", "admin");
-        user.saveInBackground();
-        return true;
     }
 }
