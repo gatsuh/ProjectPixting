@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, "Signed up", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            });/////I hope this works
+                            });/////I hope this works/
                         }else if (EDT_New_UserName.equals(null)){
                             Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
                         }else {
