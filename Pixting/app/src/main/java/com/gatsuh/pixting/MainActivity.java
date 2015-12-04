@@ -24,6 +24,7 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class MainActivity extends AppCompatActivity {
     final int CAMERA_DATA = 0;
@@ -122,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
                             user.setUsername(EDT_New_UserName.getText().toString());
                             user.setPassword(EDT_New_Password.getText().toString());
                             user.setEmail(EDT_New_UserEmail.getText().toString());
+                            user.signUpInBackground(new SignUpCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null){
+                                        Toast.makeText(MainActivity.this, )
+                                    }
+                                }
+                            });/////
                         }else if (EDT_New_UserName.equals(null)){
                             Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
                         }else {
