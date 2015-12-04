@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle("Login");
                 dialog.setContentView(R.layout.login);
                 dialog.setCanceledOnTouchOutside(false);
-                dialog.
                 dialog.show();
 
                 final EditText EDT_UserName = (EditText)dialog.findViewById(R.id.edt_userName);
@@ -127,10 +126,10 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e == null){
-                                        Toast.makeText(MainActivity.this, )
+                                        Toast.makeText(MainActivity.this, "Signed up", Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            });/////test2
+                            });/////I hope this works
                         }else if (EDT_New_UserName.equals(null)){
                             Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
                         }else {
