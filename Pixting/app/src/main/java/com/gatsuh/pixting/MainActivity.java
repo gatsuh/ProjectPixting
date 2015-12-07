@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "New Pix activity started", Toast.LENGTH_SHORT).show();
                 try {
                     Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    //startActivityForResult(i, CAMERA_DATA);
+                    startActivityForResult(i, CAMERA_DATA);
                 }catch (Exception e){
                     e.printStackTrace();
                 }finally {
