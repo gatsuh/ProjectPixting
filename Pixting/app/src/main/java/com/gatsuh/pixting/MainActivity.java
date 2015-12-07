@@ -92,28 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 Button register = (Button)dialog.findViewById(R.id.btn_register);
                 Button login = (Button)dialog.findViewById(R.id.btn_login_dialog);
 
-                login.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!(EDT_UserName.equals(null) && !(EDT_Password.equals(null)))) {
-                            ParseUser.logInInBackground(EDT_UserName.getText().toString(),
-                                    EDT_Password.getText().toString(), new LogInCallback() {
-                                        @Override
-                                        public void done(ParseUser user, ParseException e) {
-                                            if (user != null){
-                                                Toast.makeText(getApplicationContext(),"You are logged in",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }else{
-                                                Toast.makeText(getApplicationContext(),"You must register",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    }
-                            );
-                        }
-                    }
-                });
-
                 register.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
