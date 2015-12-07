@@ -3,6 +3,7 @@ package com.gatsuh.pixting;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -62,7 +63,7 @@ public class LandingActivity extends AppCompatActivity {
         BTN_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterDialogFragment dialog = new RegisterDialogFragment();
+                DialogFragment dialog = new RegisterDialogFragment();
                 dialog.show(getFragmentManager(), "RegisterDialogFragment");
             }
         });
