@@ -1,5 +1,6 @@
 package com.gatsuh.pixting;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -34,6 +35,7 @@ public class LandingActivity extends AppCompatActivity {
 
         Parse.initialize(this, mCredentials.getApplicationId(), mCredentials.getClientKey());
 
+
         EDT_Login = (EditText)findViewById(R.id.edt_login);
         EDT_Password = (EditText)findViewById(R.id.edt_password);
         BTN_Login = (Button)findViewById(R.id.btn_login);
@@ -47,10 +49,9 @@ public class LandingActivity extends AppCompatActivity {
                             @Override
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null){
-                                    Toast.makeText(LandingActivity.this, "Redirecting",
+                                    Toast.makeText(null, "Redirecting",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(i);
+                                    //openNewPage();
                                 }else{
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
@@ -67,5 +68,10 @@ public class LandingActivity extends AppCompatActivity {
                 dialog.show(getFragmentManager(), "RegisterDialogFragment");
             }
         });
+    }
+
+    private void openNewPage() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 }

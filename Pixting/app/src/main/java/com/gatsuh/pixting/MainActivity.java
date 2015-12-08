@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
+        //Parse.enableLocalDatastore(this);
 
-        Parse.initialize(this, mCredentials.getApplicationId(), mCredentials.getClientKey());
+        //Parse.initialize(this, mCredentials.getApplicationId(), mCredentials.getClientKey());
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        newPix = (Button)findViewById(R.id.btnnew);
+        /*newPix = (Button)findViewById(R.id.btnnew);
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        register = (Button)findViewById(R.id.btn_register);
+        /*register = (Button)findViewById(R.id.btn_register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
 
-        img = (ImageView)findViewById(R.id.mainimage);
+        //img = (ImageView)findViewById(R.id.mainimage);
     }
 
     @Override
