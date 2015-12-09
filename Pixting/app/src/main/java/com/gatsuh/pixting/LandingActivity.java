@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ public class LandingActivity extends AppCompatActivity {
     Credentials mCredentials = new Credentials();
     EditText EDT_Login, EDT_Password;
     Button BTN_Login, BTN_Register;
+    Intent i;
+    boolean x = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +54,15 @@ public class LandingActivity extends AppCompatActivity {
                                 if (user != null){
                                     Toast.makeText(null, "Redirecting",
                                             Toast.LENGTH_SHORT).show();
-                                    //openNewPage();
+                                    Log.d("test", e.toString());
+                                    x = true;
                                 }else{
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
+                                }
+                                if (x == true){
+                                Log.d("test", "Logged in");
+                                    openNewPage();
                                 }
                             }
                         });
@@ -71,7 +79,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     private void openNewPage() {
-        Intent i = new Intent(this, MainActivity.class);
+        i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }
