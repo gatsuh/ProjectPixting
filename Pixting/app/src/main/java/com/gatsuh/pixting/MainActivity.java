@@ -44,18 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //Parse.initialize(this, mCredentials.getApplicationId(), mCredentials.getClientKey());
 
         setContentView(R.layout.activity_main);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });*/
 
         newPix = (Button)findViewById(R.id.btnnew);
         newPix.setOnClickListener(new View.OnClickListener() {
@@ -71,57 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     img.setImageResource(R.drawable.sliced_bread_award_test);
                 }
             }
-        });
+        }); */
 
-        /*register = (Button)findViewById(R.id.btn_register);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setTitle("Login");
-                dialog.setContentView(R.layout.login);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
 
-                final EditText EDT_UserName = (EditText)dialog.findViewById(R.id.edt_userName);
-                final EditText EDT_Password = (EditText)dialog.findViewById(R.id.edt_password);
-                final EditText EDT_New_UserName = (EditText)dialog.findViewById(R.id.edt_new_username);
-                final EditText EDT_New_Password = (EditText)dialog.findViewById(R.id.edt_new_password);
-                final EditText EDT_New_UserEmail = (EditText)dialog.findViewById(R.id.edt_new_useremail);
-
-                Button register = (Button)dialog.findViewById(R.id.btn_register);
-                Button login = (Button)dialog.findViewById(R.id.btn_login_dialog);
-
-                register.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (!(EDT_New_UserName.equals(null) && !(EDT_New_Password.equals(null)))){
-                            ParseUser user = new ParseUser();
-                            user.setUsername(EDT_New_UserName.getText().toString());
-                            user.setPassword(EDT_New_Password.getText().toString());
-                            user.setEmail(EDT_New_UserEmail.getText().toString());
-                            user.signUpInBackground(new SignUpCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null){
-                                        Toast.makeText(MainActivity.this, "Signed up", Toast.LENGTH_SHORT).show();
-                                    }else {
-                                        Toast.makeText(MainActivity.this, "Sign up was unsuccessful", Toast.LENGTH_SHORT).show();
-                                        Log.d("problem",e.toString());
-                                    }
-                                }
-                            });
-                        }else if (EDT_New_UserName.equals(null)){
-                            Toast.makeText(getApplicationContext(),"Enter a user name",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"Enter a password",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });*/
-
-        //img = (ImageView)findViewById(R.id.mainimage);
     }
 
     @Override
