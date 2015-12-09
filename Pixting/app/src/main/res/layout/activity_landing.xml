@@ -18,9 +18,10 @@
         android:text="Pixting"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="45dp"
-        android:textColor="#ff081e"
-        android:id="@+id/textView" />
+        android:textSize="28dp"
+        android:textColor="#712c2c"
+        android:id="@+id/textView"
+        android:textStyle="bold|italic" />
 
     <LinearLayout
         android:orientation="horizontal"
