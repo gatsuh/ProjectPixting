@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        /*newPix = (Button)findViewById(R.id.btnnew);
+        newPix = (Button)findViewById(R.id.btnnew);
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
