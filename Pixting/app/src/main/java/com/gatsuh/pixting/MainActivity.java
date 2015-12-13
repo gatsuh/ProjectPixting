@@ -1,42 +1,32 @@
 package com.gatsuh.pixting;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
 import java.nio.ByteBuffer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+                          implements SetTextDialogFragment.SetTextDialogListener{
     final int CAMERA_DATA = 0;
     Button newPix, viewGallery;
     Bitmap bmp;
@@ -65,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, CAMERA_DATA);
-                DialogFragment dialog = new SetTextDialog();
+                DialogFragment dialog = new SetTextDialogFragment();
                 dialog.show(getFragmentManager(), "SetImageTextDialogFragment");
                 Log.d("test", "test1");
             }
@@ -138,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAMERA_DATA && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
             bmp = (Bitmap) extras.get("data");
-            SendToParse();
         }
     }
 
@@ -173,6 +162,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return inSampleSize;
+    }
+
+    @Override
+    public void onDialogPositiveClick(String imageText) {
+        // Stuff to write on Bitmap goes here
+        Toast.makeText(MainActivity.this, "Text to be added to Bitmap is " + imageText,
+                Toast.LENGTH_SHORT).show();
+        SendToParse();
     }
 
     /*public static Bitmap decodeSampledBitmapFromData(byte[] data, int offset,
