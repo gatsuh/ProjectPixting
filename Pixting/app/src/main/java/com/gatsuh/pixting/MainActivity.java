@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
@@ -19,11 +20,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -31,14 +35,16 @@ import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity {
     final int CAMERA_DATA = 0;
-    Button newPix, login, register;
+    Button newPix, viewGallery;
     Bitmap bmp;
     ImageView img;
     ParseObject testObject = new ParseObject("TestObject");
     ParseObject user = new ParseObject("UserCredentials");
     Credentials mCredentials = new Credentials();
+    ParseFile picture;
+    Bitmap temp;
+    BitmapFactory.Options options = new BitmapFactory.Options();
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Enable Local Datastore.
@@ -47,28 +53,63 @@ public class MainActivity extends AppCompatActivity {
         //Parse.initialize(this, mCredentials.getApplicationId(), mCredentials.getClientKey());
 
         setContentView(R.layout.activity_main);
+        img = (ImageView) findViewById(R.id.main_image);
+        options.inJustDecodeBounds = true;
 
-
-        newPix = (Button)findViewById(R.id.btnnew);
+        newPix = (Button) findViewById(R.id.btn_new);
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "New Pix activity started", Toast.LENGTH_SHORT).show();
                 try {
                     Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(i, CAMERA_DATA);
-                    Log.d("test","test1");
-                }catch (Exception e){
+                    Log.d("test", "test1");
+                } catch (Exception e) {
                     e.printStackTrace();
                     Log.d("test", "test1");
-                }finally {
-                    //img.setImageResource(R.drawable.sliced_bread_award_test);
-                    Log.d("test", "test1");
+                } finally {
+                    Log.d("test", "test failed");
                 }
             }
         });
 
-
+        viewGallery = (Button) findViewById(R.id.btn_gallery);
+        viewGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseQuery<ParseObject> query =
+                        ParseQuery.getQuery("Gallery");
+                query.getInBackground("QufPpUoHUj", new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+                        if (e == null) {
+                            Toast.makeText(getApplicationContext(), "ParseObject created",
+                                    Toast.LENGTH_SHORT).show();
+                            picture = (ParseFile) object.get("Picture");
+                            picture.getDataInBackground(new GetDataCallback() {
+                                @Override
+                                public void done(byte[] data, ParseException e) {
+                                    if (e == null) {
+                                        Toast.makeText(getApplicationContext(), "Life is good",
+                                                Toast.LENGTH_SHORT).show();
+//First attempt=========================>>temp = BitmapFactory.decodeByteArray(data,0,data.length);
+//Second attempt========================>>img.setImageBitmap(decodeSampledBitmapFromData(data, 0, data.length,
+                                               //100, 100 ));
+                                        img.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length, options));
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Life sucks",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getApplicationContext(), "ParseObject not created",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -96,16 +137,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_DATA && resultCode == Activity.RESULT_OK){
+        if (requestCode == CAMERA_DATA && resultCode == Activity.RESULT_OK) {
             Bundle extras = data.getExtras();
-            bmp = (Bitmap)extras.get("data");
+            bmp = (Bitmap) extras.get("data");
             SendToParse();
-            //img.setImageBitmap(bmp);
-            //testObject.add("Image", bmp);
-            //testObject.saveInBackground();
         }
     }
-    public void SendToParse(){
+
+    public void SendToParse() {
         int bytes = bmp.getByteCount();
         ByteBuffer buffer = ByteBuffer.allocate(bytes);
         bmp.copyPixelsToBuffer(buffer);
@@ -119,6 +158,36 @@ public class MainActivity extends AppCompatActivity {
         object.put("Picture", file);
         object.saveInBackground();
     }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
+    }
+
+    /*public static Bitmap decodeSampledBitmapFromData(byte[] data, int offset,
+                                                     int lenght, int reqHeight, int reqWidth){
+        /*final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(data, offset, lenght, options);
+
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(data, offset, lenght, options);
+    }*/
 }
 
 //I HATE GITHUB
