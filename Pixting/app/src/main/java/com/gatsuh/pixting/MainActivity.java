@@ -1,7 +1,10 @@
 package com.gatsuh.pixting;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -60,16 +63,11 @@ public class MainActivity extends AppCompatActivity {
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(i, CAMERA_DATA);
-                    Log.d("test", "test1");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("test", "test1");
-                } finally {
-                    Log.d("test", "test failed");
-                }
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(i, CAMERA_DATA);
+                DialogFragment dialog = new SetTextDialog();
+                dialog.show(getFragmentManager(), "SetImageTextDialogFragment");
+                Log.d("test", "test1");
             }
         });
 
