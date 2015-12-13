@@ -22,9 +22,12 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity {
     final int CAMERA_DATA = 0;
@@ -54,13 +57,16 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(i, CAMERA_DATA);
+                    Log.d("test","test1");
                 }catch (Exception e){
                     e.printStackTrace();
+                    Log.d("test", "test1");
                 }finally {
-                    img.setImageResource(R.drawable.sliced_bread_award_test);
+                    //img.setImageResource(R.drawable.sliced_bread_award_test);
+                    Log.d("test", "test1");
                 }
             }
-        }); */
+        });
 
 
     }
@@ -93,10 +99,25 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAMERA_DATA && resultCode == Activity.RESULT_OK){
             Bundle extras = data.getExtras();
             bmp = (Bitmap)extras.get("data");
-            img.setImageBitmap(bmp);
-            testObject.add("Image", bmp);
-            testObject.saveInBackground();
+            SendToParse();
+            //img.setImageBitmap(bmp);
+            //testObject.add("Image", bmp);
+            //testObject.saveInBackground();
         }
+    }
+    public void SendToParse(){
+        int bytes = bmp.getByteCount();
+        ByteBuffer buffer = ByteBuffer.allocate(bytes);
+        bmp.copyPixelsToBuffer(buffer);
+        byte[] array = buffer.array();
+
+        ParseFile file = new ParseFile("Picture", array);
+        file.saveInBackground();
+
+        ParseObject object = new ParseObject("Gallery");
+        object.put("Test", "Mark");
+        object.put("Picture", file);
+        object.saveInBackground();
     }
 }
 
