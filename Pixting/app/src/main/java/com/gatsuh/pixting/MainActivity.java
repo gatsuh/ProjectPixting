@@ -1,10 +1,18 @@
 package com.gatsuh.pixting;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +31,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 public class MainActivity extends AppCompatActivity
@@ -82,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                                                 Toast.LENGTH_SHORT).show();
 //First attempt=========================>>temp = BitmapFactory.decodeByteArray(data,0,data.length);
 //Second attempt========================>>img.setImageBitmap(decodeSampledBitmapFromData(data, 0, data.length,
-                                               //100, 100 ));
+                                        //100, 100 ));
                                         img.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length, options));
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Life sucks",
@@ -169,7 +178,54 @@ public class MainActivity extends AppCompatActivity
         // Stuff to write on Bitmap goes here
         Toast.makeText(MainActivity.this, "Text to be added to Bitmap is " + imageText,
                 Toast.LENGTH_SHORT).show();
-        SendToParse();
+        Bitmap newBmp = (writeTextOnBitmap(bmp, imageText).getBitmap());
+        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        //newBmp .compress(Bitmap.CompressFormat.PNG, 100, stream);
+        //byte[] byteArray = stream.toByteArray();
+
+        Bundle b = new Bundle();
+        b.putParcelable("Image", newBmp);
+
+        DialogFragment dialog = new ConfirmImageDialogFragment();
+        dialog.setArguments(b);
+        dialog.show(getFragmentManager(), "Confirm Image Text");
+
+        //SendToParse();
+    }
+
+    public BitmapDrawable writeTextOnBitmap(Bitmap bmp, String text){
+        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+        paint.setTypeface(tf);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize(convertToPixels(getApplicationContext(), 11));
+
+        Rect textRect = new Rect();
+        paint.getTextBounds(text, 0 , text.length(), textRect);
+
+        Canvas canvas = new Canvas();
+        canvas.drawBitmap(bmp, 0f, 0f, null);
+
+        if (textRect.width() >= (canvas.getWidth() - 4)) {
+            paint.setTextSize(convertToPixels(getApplicationContext(), 7));
+        }
+
+        int xPos = (canvas.getWidth() / 2) - 2;
+
+        int yPos = (int)((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+
+        canvas.drawText(text, xPos, yPos, paint);
+
+        return new BitmapDrawable(getResources(), bmp);
+    }
+
+    public static int convertToPixels(Context context, int nDP){
+        final float conversionScale = context.getResources().getDisplayMetrics().density;
+
+        return (int)((nDP * conversionScale) + 0.5f);
     }
 
     /*public static Bitmap decodeSampledBitmapFromData(byte[] data, int offset,

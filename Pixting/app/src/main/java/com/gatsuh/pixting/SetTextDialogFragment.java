@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import android.widget.EditText;
  */
 public class SetTextDialogFragment extends DialogFragment {
     SetTextDialogListener mListener;
+    String text;
 
     @Override
     public void onAttach(Activity activity) {
@@ -35,11 +38,26 @@ public class SetTextDialogFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.set_image_text, null);
         builder.setView(v);
         final EditText EDT_Set_Image_Text = (EditText)v.findViewById(R.id.edt_image_text);
+        EDT_Set_Image_Text.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                text = EDT_Set_Image_Text.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mListener.onDialogPositiveClick(EDT_Set_Image_Text.getText().toString());
-
+                mListener.onDialogPositiveClick(text);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
