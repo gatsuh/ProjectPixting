@@ -63,7 +63,6 @@ public class LandingActivity extends AppCompatActivity {
                                 if (x == true) {
                                     Log.d("test", "Logged in");
                                     openNewPage();
-
                                 }
                             }
                         });
