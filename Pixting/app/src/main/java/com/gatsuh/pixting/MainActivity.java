@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity
     ImageView img;
     Bitmap newBmp;
     BitmapFactory.Options options = new BitmapFactory.Options();
-    ParseQueryAdapter<ParseObject> mainAdapter;
-    ListView listView;
+    Intent g, i;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         newPix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, CAMERA_DATA);
                 DialogFragment dialog = new SetTextDialogFragment();
                 dialog.show(getFragmentManager(), "SetImageTextDialogFragment");
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         viewGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent g = new Intent(MainActivity.this, GalleryActivity.class);
+                g = new Intent(MainActivity.this, GalleryActivity.class);
                 startActivity(g);
             }
         });

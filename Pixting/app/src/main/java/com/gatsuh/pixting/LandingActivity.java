@@ -28,6 +28,7 @@ public class LandingActivity extends AppCompatActivity {
     EditText EDT_Login, EDT_Password;
     Button BTN_Login, BTN_Register;
     Intent i;
+    boolean x = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class LandingActivity extends AppCompatActivity {
                             @Override
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
+                                    //Log.d("test", e.toString());
                                     openNewPage();
-                                    Log.d("test", e.toString());
                                 } else {
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
@@ -72,7 +73,7 @@ public class LandingActivity extends AppCompatActivity {
     }
 
     public void openNewPage() {
-        i = new Intent(this, MainActivity.class);
+        i = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(i);
     }
 }
