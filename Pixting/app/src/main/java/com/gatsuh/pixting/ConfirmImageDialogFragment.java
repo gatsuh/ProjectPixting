@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,6 +34,8 @@ public class ConfirmImageDialogFragment extends DialogFragment {
         builder.setView(v);
         Bitmap bitmapImage = this.getArguments().getParcelable("Image");
         ImageView IMG_Confirm_Image_Text = (ImageView)v.findViewById(R.id.img_confirm_image_text);
+        //bitmapImage.setHeight(200);
+        //bitmapImage.setWidth(200);
         IMG_Confirm_Image_Text.setImageBitmap(bitmapImage);
         builder.setPositiveButton("Looks Good", new DialogInterface.OnClickListener() {
                     @Override
@@ -44,6 +47,12 @@ public class ConfirmImageDialogFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                    }
+                })
+                .setNeutralButton("Add text", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
         return builder.create();

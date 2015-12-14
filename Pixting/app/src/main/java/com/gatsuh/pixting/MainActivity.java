@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,6 +17,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     ParseObject user = new ParseObject("UserCredentials");
     Credentials mCredentials = new Credentials();
     ParseFile picture;
+    Bitmap newBmp;
     Bitmap temp;
     BitmapFactory.Options options = new BitmapFactory.Options();
 
@@ -178,22 +183,22 @@ public class MainActivity extends AppCompatActivity
         // Stuff to write on Bitmap goes here
         Toast.makeText(MainActivity.this, "Text to be added to Bitmap is " + imageText,
                 Toast.LENGTH_SHORT).show();
-        Bitmap newBmp = (writeTextOnBitmap(bmp, imageText).getBitmap());
-        //ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        //newBmp .compress(Bitmap.CompressFormat.PNG, 100, stream);
-        //byte[] byteArray = stream.toByteArray();
+        //newBmp = BitmapFactory.de
+        img.setImageDrawable(writeTextOnBitmap(bmp, ""));
 
         Bundle b = new Bundle();
-        b.putParcelable("Image", newBmp);
+        //b.putParcelable("Image", newBmp);
 
         DialogFragment dialog = new ConfirmImageDialogFragment();
         dialog.setArguments(b);
+
         dialog.show(getFragmentManager(), "Confirm Image Text");
 
         //SendToParse();
     }
 
-    public BitmapDrawable writeTextOnBitmap(Bitmap bmp, String text){
+    public BitmapDrawable writeTextOnBitmap(Bitmap bmp, String anything){
+        String text = "Test";
         Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
 
         Paint paint = new Paint();
@@ -204,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         paint.setTextSize(convertToPixels(getApplicationContext(), 11));
 
         Rect textRect = new Rect();
-        paint.getTextBounds(text, 0 , text.length(), textRect);
+        paint.getTextBounds(text, 0, text.length(), textRect);
 
         Canvas canvas = new Canvas();
         canvas.drawBitmap(bmp, 0f, 0f, null);
@@ -221,6 +226,58 @@ public class MainActivity extends AppCompatActivity
 
         return new BitmapDrawable(getResources(), bmp);
     }
+
+    /*public Bitmap writeTextOnBitmap(Bitmap bitmap, String test){
+        String text = "test";
+        Resources resources = getApplicationContext().getResources();
+        /*android.graphics.Bitmap.Config bitmapConfig =
+                bitmap.getConfig();
+        if (bitmapConfig == null){
+            bitmapConfig = Bitmap.Config.ARGB_8888;
+        }
+        Bitmap bmp = bitmap.copy(bitmapConfig, true);
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.FILL);
+        Canvas canvas = new Canvas();
+        canvas.setBitmap(bmp);
+        //canvas.drawBitmap(bitmap, 0f, 0f, null);
+
+        paint.setTextSize(20f);
+        canvas.drawText(text, 0, 0, paint);
+        img.setImageBitmap(bmp);
+
+        return bmp;
+        float scale = resources.getDisplayMetrics().density;
+        android.graphics.Bitmap.Config bitmapConfig =
+                bitmap.getConfig();
+        if (bitmapConfig == null){
+            bitmapConfig = Bitmap.Config.ARGB_8888;
+        }
+        //bmp = bitmap.copy(bitmapConfig, true);
+
+        Canvas canvas = new Canvas();
+        //canvas.drawBitmap(bmp, 0f, 0f, null);
+        // new antialised Paint
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        // text color - #3D3D3D
+        paint.setColor(Color.rgb(61, 61, 61));
+        // text size in pixels
+        paint.setTextSize((int) (14 * scale));
+        // text shadow
+        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+        // draw text to the Canvas center
+        Rect bounds = new Rect();
+        //paint.getTextBounds(text, 0, text.length(), bounds);
+        //int x = (bitmap.getWidth() - bounds.width())/2;
+        //int y = (bitmap.getHeight() - bounds.height())/2;
+
+        //canvas.drawText(text, x, y, paint);
+        canvas.drawRect(100f, 400f, 150f, 500f, paint);
+        img.setImageBitmap(bmp);
+        return bmp;
+    }*/
 
     public static int convertToPixels(Context context, int nDP){
         final float conversionScale = context.getResources().getDisplayMetrics().density;
