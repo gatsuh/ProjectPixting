@@ -28,7 +28,6 @@ public class LandingActivity extends AppCompatActivity {
     EditText EDT_Login, EDT_Password;
     Button BTN_Login, BTN_Register;
     Intent i;
-    boolean x = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class LandingActivity extends AppCompatActivity {
 
 
         EDT_Login = (EditText)findViewById(R.id.edt_login);
-        EDT_Password = (EditText)findViewById(R.id.edt_password);
+        EDT_Password = (EditText)findViewById(R.id.edt_login_password);
         BTN_Login = (Button)findViewById(R.id.btn_login);
         BTN_Register = (Button)findViewById(R.id.btn_register);
 
@@ -51,19 +50,14 @@ public class LandingActivity extends AppCompatActivity {
                         EDT_Password.getText().toString(), new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
-                                if (user != null) {
-                                    Toast.makeText(LandingActivity.this, "Redirecting",
-                                            Toast.LENGTH_SHORT).show();
+                                /*if (user != null) {
+                                    //openNewPage();
                                     Log.d("test", e.toString());
-                                    x = true;
                                 } else {
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
-                                }
-                                if (x == true) {
-                                    Log.d("test", "Logged in");
-                                    openNewPage();
-                                }
+                                }*/
+                                openNewPage();
                             }
                         });
             }
@@ -78,7 +72,7 @@ public class LandingActivity extends AppCompatActivity {
         });
     }
 
-    private void openNewPage() {
+    public void openNewPage() {
         i = new Intent(this, MainActivity.class);
         startActivity(i);
     }

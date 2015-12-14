@@ -25,9 +25,7 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity
-            android:name=".GalleryActivity"
-            android:label="@string/title_activity_gallery"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".GalleryActivity">
         </activity>
     </application>
 

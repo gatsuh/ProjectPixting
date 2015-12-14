@@ -22,12 +22,15 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         mainAdapter = new ParseQueryAdapter<>(this, "Gallery");
-        mainAdapter.setTextKey("");
+        mainAdapter.setTextKey("Test");
         mainAdapter.setImageKey("Picture");
+
+        //mainAdapter = new CustomAdapter(this);
 
         listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(mainAdapter);
         mainAdapter.loadObjects();
+
     }
 
 }
