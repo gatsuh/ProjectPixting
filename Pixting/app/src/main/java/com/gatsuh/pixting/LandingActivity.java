@@ -51,19 +51,20 @@ public class LandingActivity extends AppCompatActivity {
                         EDT_Password.getText().toString(), new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
-                                /*if (user != null){
+                                if (user != null) {
                                     Toast.makeText(LandingActivity.this, "Redirecting",
                                             Toast.LENGTH_SHORT).show();
                                     Log.d("test", e.toString());
                                     x = true;
-                                }else{
+                                } else {
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
                                 }
-                                if (x == true){*/
-                                Log.d("test", "Logged in");
+                                if (x == true) {
+                                    Log.d("test", "Logged in");
                                     openNewPage();
-                                //}
+
+                                }
                             }
                         });
             }

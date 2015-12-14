@@ -27,9 +27,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sliced_bread_award"
+        android:scaleType="fitXY"
         android:layout_below="@+id/btn_new"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp" />
+        android:layout_marginTop="41dp"
+        android:layout_alignRight="@+id/main_text"
+        android:layout_alignEnd="@+id/main_text"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/main_text"
+        android:layout_alignStart="@+id/main_text"/>
     <Button
         android:id="@+id/btn_new"
         android:layout_width="150dp"
