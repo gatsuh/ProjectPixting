@@ -50,14 +50,13 @@ public class LandingActivity extends AppCompatActivity {
                         EDT_Password.getText().toString(), new LogInCallback() {
                             @Override
                             public void done(ParseUser user, ParseException e) {
-                                /*if (user != null) {
-                                    //openNewPage();
+                                if (user != null) {
+                                    openNewPage();
                                     Log.d("test", e.toString());
                                 } else {
                                     Toast.makeText(LandingActivity.this, "Login failed",
                                             Toast.LENGTH_LONG).show();
-                                }*/
-                                openNewPage();
+                                }
                             }
                         });
             }
