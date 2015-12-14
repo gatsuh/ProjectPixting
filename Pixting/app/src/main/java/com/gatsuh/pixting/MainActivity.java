@@ -36,9 +36,11 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity
                           implements SetTextDialogFragment.SetTextDialogListener{
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity
     ImageView img;
     Bitmap newBmp;
     BitmapFactory.Options options = new BitmapFactory.Options();
+    private ParseQueryAdapter<ParseObject> mainAdapter;
+    private ListView listView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,15 @@ public class MainActivity extends AppCompatActivity
                 startActivity(g);
             }
         });
-    }
+
+        mainAdapter = new ParseQueryAdapter<ParseObject>(this, "Gallery");
+        mainAdapter.setTextKey("title");
+        mainAdapter.setImageKey("image");
+
+        listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(mainAdapter);
+        mainAdapter.loadObjects();
+            }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
